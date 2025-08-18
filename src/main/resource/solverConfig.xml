@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+	<solutionClass>com.midco.rota.Rota</solutionClass>
+	<entityClass>com.midco.rota.ShiftAssignment</entityClass>
+	<scoreDirectorFactory>
+		<constraintProviderClass>
+			com.midco.rota.RotaConstraintProvider
+		</constraintProviderClass>
+		<constraintMatchEnabledPreference>ALWAYS</constraintMatchEnabledPreference>
+	</scoreDirectorFactory>
+	<termination>
+		<secondsSpentLimit>5</secondsSpentLimit>
+	</termination>
+</solver>
