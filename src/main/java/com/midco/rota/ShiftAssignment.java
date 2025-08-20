@@ -1,17 +1,32 @@
 package com.midco.rota;
 
-import java.time.LocalDate;
-
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 @PlanningEntity
 public class ShiftAssignment {
-	private LocalDate date;
-	private ShiftType shiftType;
+
+	private Shift shift;
+
 	@PlanningId
-	private Long id;
+	private long id;
+
+	@PlanningVariable(valueRangeProviderRefs = "employeeRange", nullable = true)
+	private Employee employee; // planning variable
+
+	public ShiftAssignment() {
+	}
+
+	public ShiftAssignment(Shift shift, long id) {
+		this.shift = shift;
+
+		this.id = id;
+	}
+
+	public Shift getShift() {
+		return shift;
+	}
 
 	public Long getId() {
 		return id;
@@ -21,26 +36,14 @@ public class ShiftAssignment {
 		this.id = id;
 	}
 
-	private Employee employee; // planning variable
-
-	public ShiftAssignment() {
+	public void setShift(Shift shift) {
+		this.shift = shift;
 	}
 
-	public ShiftAssignment(LocalDate date, ShiftType shiftType, Long id) {
-		this.date = date;
-		this.shiftType = shiftType;
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public ShiftType getShiftType() {
-		return shiftType;
-	}
-
-	@PlanningVariable(valueRangeProviderRefs = "employeeRange" ,nullable = true)
 	public Employee getEmployee() {
 		return employee;
 	}
@@ -51,6 +54,8 @@ public class ShiftAssignment {
 
 	@Override
 	public String toString() {
-		return date + " " + shiftType + " -> " + (employee == null ? "UNASSIGNED" : employee.getName());
+		return shift.getShiftTemplate().getLocation() + " " + shift.getShiftDate() + " "
+				+ shift.getShiftTemplate().getStartTime() + " -> "
+				+ (employee == null ? "UNASSIGNED" : employee.getName());
 	}
 }

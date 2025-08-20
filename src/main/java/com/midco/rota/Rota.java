@@ -15,6 +15,12 @@ public class Rota {
 	@ProblemFactCollectionProperty
 	private List<Employee> employeeList;
 
+	@Override
+	public String toString() {
+		return "Rota [employeeList=" + employeeList + ", shiftAssignmentList=" + shiftAssignmentList + ", score="
+				+ score + ", idealShiftCountList=" + idealShiftCountList + "]";
+	}
+
 	@PlanningEntityCollectionProperty
 	private List<ShiftAssignment> shiftAssignmentList;
 
