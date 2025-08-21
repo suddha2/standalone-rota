@@ -43,7 +43,7 @@ public class RotaApp {
 			LocalDate current = startDate;
 			while (!current.isAfter(endDate)) {
 				if (current.getDayOfWeek().toString().equals(template.getDayOfWeek())) {
-					instances.add(new Shift(id.getAndIncrement(), current, template,template.getEmpCount()));
+					instances.add(new Shift(id.getAndIncrement(), current, template));
 
 				}
 				current = current.plusDays(1);
@@ -59,7 +59,7 @@ public class RotaApp {
 		List<ShiftAssignment> assignments = new ArrayList<>();
 
 		for (Shift shift : instances) {
-		    for (int i = 0; i < shift.getEmpCount(); i++) {
+		    for (int i = 0; i < shift.getShiftTemplate().getEmpCount(); i++) {
 		        ShiftAssignment assignment = new ShiftAssignment(shift, id.getAndIncrement());
 		        assignments.add(assignment);
 		    }
