@@ -19,9 +19,11 @@ public class ShiftTemplate {
 	private String requiredGender;
 
 	private String requiredSkills;
+	
+	private int empCount;
 
 	public ShiftTemplate(long id, String location, String region, String dayOfWeek, LocalTime startTime,
-			LocalTime endTime, String requiredGender, String requiredSkills) {
+			LocalTime endTime, String requiredGender, String requiredSkills,int empCount) {
 		super();
 		this.id = id;
 		this.location = location;
@@ -31,6 +33,7 @@ public class ShiftTemplate {
 		this.endTime = endTime;
 		this.requiredGender = requiredGender;
 		this.requiredSkills = requiredSkills;
+		this.empCount = empCount;
 	}
 
 	public String getRequiredSkills() {
@@ -99,6 +102,14 @@ public class ShiftTemplate {
 
 	public void setRequiredGender(String requiredGender) {
 		this.requiredGender = requiredGender;
+	}
+
+	public int getEmpCount() {
+		return empCount;
+	}
+
+	public void setEmpCount(int empCount) {
+		this.empCount = empCount;
 	}
 
 }

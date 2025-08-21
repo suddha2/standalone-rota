@@ -34,7 +34,7 @@ public class RotaApp {
 
 		LocalDate startDate = LocalDate.now();
 		LocalDate endDate = startDate.plusDays(6);
-		List<ShiftAssignment> shifts = new ArrayList<>();
+//		List<ShiftAssignment> shifts = new ArrayList<>();
 		List<Shift> instances = new ArrayList<>();
 		AtomicLong id = new AtomicLong(1L);
 		
@@ -43,7 +43,7 @@ public class RotaApp {
 			LocalDate current = startDate;
 			while (!current.isAfter(endDate)) {
 				if (current.getDayOfWeek().toString().equals(template.getDayOfWeek())) {
-					instances.add(new Shift(id.getAndIncrement(), current, template,(int)(Math.random() * 3) + 1));
+					instances.add(new Shift(id.getAndIncrement(), current, template,template.getEmpCount()));
 
 				}
 				current = current.plusDays(1);
@@ -145,7 +145,7 @@ public class RotaApp {
 		List<ShiftTemplate> shiftTemList = new ArrayList<>();
 		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 
-			String sql = "SELECT id,location,region,day_of_week,start_time,end_time,required_gender,required_skills  FROM shift_templates";
+			String sql = "SELECT id,location,region,day_of_week,start_time,end_time,required_gender,required_skills,emp_count  FROM shift_templates";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
@@ -158,8 +158,9 @@ public class RotaApp {
 				LocalTime end_time = LocalTime.parse(rs.getString("end_time"));
 				String required_gender = rs.getString("required_gender");
 				String required_skills = rs.getString("required_skills");
+				int empCount = rs.getInt("emp_count");
 				shiftTemList.add(new ShiftTemplate(id, location, region, day_of_week, start_time, end_time,
-						required_gender, required_skills));
+						required_gender, required_skills,empCount));
 			}
 
 		} catch (SQLException e) {
